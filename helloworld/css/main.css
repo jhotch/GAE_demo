@@ -1,0 +1,137 @@
+body {
+	font-family:Sans-serif;
+	background-color:#FFFFF3;
+	color:#333;
+}
+
+h1 {
+	font-weight:800;
+	font-size:1.4em;
+}
+
+h2 {
+	font-weight:800;
+	font-size:1.4em;
+	margin:1.2em 0 0.2em 0;
+	padding-bottom:0.2em;
+}
+
+h3 {
+	font-weight:600;
+}
+
+h4 {
+	color:#888;
+	padding:0.2em 0 0 0.1em;
+	font-size:0.9em;
+}
+
+.hidden {
+	visibility:hidden;
+	display:none;
+}
+
+/* layout styles and tweaks*/
+/* column container */
+.colmask {
+	position:relative;	/* fix IE7 overflow hidden bug */
+	clear:both;
+	float:left;
+	width:100%;			
+	overflow:hidden;	/* hide overhangs */
+}
+/* 2 column right menu settings */
+.rightmenu .colleft {
+	float:left;
+	width:200%;
+	margin-left:-12em;
+	position:relative;
+	right:100%;
+}
+.rightmenu .col1wrap {
+	float:left;
+	width:50%;
+	position:relative;
+	left:50%;
+	padding-bottom:1em;
+}
+.rightmenu .col1 {
+	margin:0 1em 0 13em;
+	overflow:hidden;
+}
+.rightmenu .col2 {
+	float:right;
+	width:12em;
+	position:relative;
+	left:12em;
+}
+
+
+/* summary styles*/
+#summaryContainer {
+	margin:0.5em 0 0 0.5em;
+	padding:0.5em;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px; 
+	border-radius: 10px;
+	background-color:#fff;
+	width:92%;
+}
+
+#summaryContainer ol li {
+	padding: 0.5em 0;
+	vertical-align:bottom;
+}
+
+.arrivalInfo {
+	padding-left:0.5em;
+	font-weight:normal;
+	font-size:0.9em;
+	color:#888;
+}
+
+.arrivalToggle {
+	float:right;
+}
+
+.arrivalToggle input {
+	width:6em;
+	height:3em;
+	margin-right:0.5em;
+	margin-top:-0.2em;
+}
+
+.highlight {
+ background-color:#f3f3ff;
+}
+
+/* visitor form styles */
+#formContainer {
+	margin:0.5em 0.5em 0 0;
+	padding:0.5em;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px; 
+	border-radius: 10px;
+	background-color:#fff;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+	padding:0 0 0 0;
+	font-size:0.65em;
+	margin-left:0.1em;
+}
+
+.input{
+	display:block;
+	padding:0 0 0 0;
+	color:#000;
+}
+
+#visitorForm ol li {
+	padding: 0.5em;
+	vertical-align:bottom;
+}

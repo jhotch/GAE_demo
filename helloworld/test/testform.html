@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Test Form</title>
+	<link rel="stylesheet" type="text/css" href="/css/reset.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/css/main.css" media="screen" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+</head>
+<body>
+	<div class="colmask rightmenu">
+		<div class="colleft">
+			<div class="col1wrap">
+				<div class="col1">
+					<!-- Column 1 start -->
+					<div id="summaryContainer">
+						<h1>Visitor Summary - TodaysDate</h1>
+						
+						<h2>Due to Arrive</h2>
+						<ol>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnArrival_1" name="btnArrival_1" type="button" value="Arrived" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Due at 00:00 AM</span></h3>
+								<h4>To be escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnArrival_2" name="btnArrival_2" type="button" value="Arrived" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Due at 00:00 AM</span></h3>
+								<h4>To be escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnArrival_3" name="btnArrival_3" type="button" value="Arrived" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Due at 00:00 AM</span></h3>
+								<h4>To be escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnArrival_4" name="btnArrival_4" type="button" value="Arrived" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Due at 00:00 AM</span></h3>
+								<h4>To be escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnArrival_5" name="btnArrival_5" type="button" value="Arrived" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Due at 00:00 AM</span></h3>
+								<h4>To be escorted by Escort's FullName.</h4>
+							</li>
+						</ol>
+						
+						<h2>On-site</h2>
+						<ol>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnDeparted_1" name="btnDeparted_1" type="button" value="Departed" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived at 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnDeparted_2" name="btnDeparted_2" type="button" value="Departed" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived at 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnDeparted_3" name="btnDeparted_3" type="button" value="Departed" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived at 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnDeparted_4" name="btnDeparted_4" type="button" value="Departed" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived at 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<span class="arrivalToggle">
+									<input id="btnDeparted_5" name="btnDeparted_5" type="button" value="Departed" />
+								</span>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived at 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+						</ol>
+						
+						<h2>Departed</h2>
+						<ol>
+							<li>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived 00:00 AM / Departed 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived 00:00 AM / Departed 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived 00:00 AM / Departed 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived 00:00 AM / Departed 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+							<li>
+								<h3>Visitor's FullName <span class="arrivalInfo">Arrived 00:00 AM / Departed 00:00 AM</span></h3>
+								<h4>Escorted by Escort's FullName.</h4>
+							</li>
+						</ol>
+					</div>						
+					<!-- Column 1 end -->
+				</div>
+			</div>
+			<div class="col2">
+				<!-- Column 2 start -->
+				<div id="formContainer">
+					<form action="/vislog" method="post" name="visitorForm" id="visitorForm">
+						<fieldset>
+							<legend id="formLegend"><h1>Visitor Intake<h1></legend>
+							<ol>
+								<li>
+									<label for="name">Name</label>
+									<input id="name" name="name" type="text" placeholder="First and last name" required autofocus />
+								</li>
+								<li>
+									<label for="escortName">Escort</label>
+									<input id="escortName" name="escortName" type="text" placeholder="On-site escort" required />
+								</li>
+								<li>
+									<label for="expectedArrivalDate">Date of visit</label>
+									<input id="expectedArrivalDate" name="expectedArrivalDate" type="date" required />
+								</li>
+								<li>
+									<label for="expectedArrival">Expected arrival time</label>
+									<input id="expectedArrivalTime" name="expectedArrivalTime" type="time" required />
+								</li>
+								<li>
+									<input id="btnSubmit" name="btnSubmit" type="button" value="Add" />
+									<input id="btnReset" name="btnReset" type="button" value="Clear" />
+								</li>
+							</ol>
+						</fieldset>
+					</form>
+				</div>
+				<!-- Column 2 end -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>

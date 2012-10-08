@@ -1,0 +1,22 @@
+application: milli3j0shkin
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /css
+  static_dir: css
+  
+- url: /js
+  static_dir: js
+  
+- url: /test
+  static_dir: test
+
+- url: /.*
+  script: helloworld.app  
+  
+libraries:
+- name: jinja2
+  version: latest
