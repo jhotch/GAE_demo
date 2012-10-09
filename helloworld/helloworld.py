@@ -38,17 +38,36 @@ class JSONEncoder(json.JSONEncoder):
         if hasattr(obj, 'isoformat'): #handles both date and datetime objects
             return obj.isoformat()
         else:
-            return json.JSONEncoder.default(self, obj)  
-  
+            return json.JSONEncoder.default(self, obj)
+
 class RPCHandler(webapp2.RequestHandler):
+        
+	def post(self):
+		self.methods = RPCMethods()
 		
-	def get(self):
-		guestbook_name = self.request.get('guestbook_name')
+		args = json.loads(self.request.body)
+		func, args = args[0], args[1:]
+
+		if func[0] == '_':
+			self.error(403) # access denied
+			return
+
+		func = getattr(self.methods, func, None)
+		if not func:
+			self.error(404) # file not found
+			return
+
+		result = func(*args)
+		jsonResult = to_json(result)
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.out.write(jsonResult)
+		
+class RPCMethods:
+	""" Defines the methods that can be RPCed. NOTE: Do not allow remote callers access to private/protected "_*" methods. """
+	def getAllGreetings(self):
 		greetings_query = Greeting.all().order('-date')
 		greetings = greetings_query.fetch(10)
-		jsonGreetings = to_json(greetings)
-		self.response.headers['Content-Type'] = 'application/json'
-		self.response.out.write(jsonGreetings)
+		return greetings
 
 class MainPage(webapp2.RequestHandler):
     def get(self):

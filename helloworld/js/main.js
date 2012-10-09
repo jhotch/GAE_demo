@@ -1,10 +1,11 @@
 $(document).ready(function(){
-
+	var params = new Array('getAllGreetings');
 	// ajax test
 	$.ajax({
-	   type: "GET",
+	   type: "post",
 	   url: "/rpc",
-	   data: "",
+	   data: JSON.stringify(params),
+	   dataType: "json",
 	   success: function(response){
 		 console.log(response);
 	   }
