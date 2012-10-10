@@ -1,10 +1,12 @@
 import cgi
 import datetime
+import time
 import urllib
 import webapp2
 import jinja2
 import os
 import json
+import logging
 
 from google.appengine.ext import db
 from google.appengine.api import users
@@ -20,9 +22,10 @@ class Greeting(db.Model):
 class Visitor(db.Model):
 	name = db.StringProperty()
 	escortName = db.StringProperty()
-	expectedArrival = db.DateTimeProperty()
-	actualArrival = db.DateTimeProperty()
-	actualDeparture = db.DateTimeProperty()
+	expectedArrivalDate = db.DateTimeProperty()
+	expectedArrivalTime = db.DateTimeProperty()
+	actualArrivalTime = db.DateTimeProperty()
+	actualDepartureTime = db.DateTimeProperty()
 
 def guestbook_key(guestbook_name = None):
   return db.Key.from_path('Guestbook', guestbook_name or 'default_guestbook')
@@ -57,17 +60,28 @@ class RPCHandler(webapp2.RequestHandler):
 			self.error(404) # file not found
 			return
 
-		result = func(*args)
-		jsonResult = to_json(result)
+		jsonResult = func(*args)
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.out.write(jsonResult)
 		
 class RPCMethods:
 	""" Defines the methods that can be RPCed. NOTE: Do not allow remote callers access to private/protected "_*" methods. """
-	def getAllGreetings(self):
+	def GetAllGreetings(self):
 		greetings_query = Greeting.all().order('-date')
 		greetings = greetings_query.fetch(10)
-		return greetings
+		jsonResult = to_json(greetings)
+		return jsonResult
+		
+	def AddVisitor(self, argsArray):
+		visitor = Visitor()
+		visitor.name = argsArray[0].get("value")
+		visitor.escortName = argsArray[1].get("value")
+		visitor.expectedArrivalDate = datetime.datetime.strptime(argsArray[2].get("value"), "%Y-%m-%d")
+		visitor.expectedArrivalTime = datetime.datetime.strptime(argsArray[3].get("value"), "%H:%M")
+		visitor.put()
+		logging.info(visitor.key())
+		#jsonVisitorKey = json.dumps(visitor.key(), cls=JSONEncoder)
+		return "jsonVisitorKey"
 
 class MainPage(webapp2.RequestHandler):
     def get(self):

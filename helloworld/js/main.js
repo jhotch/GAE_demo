@@ -1,6 +1,8 @@
-$(document).ready(function(){
-	var params = new Array('getAllGreetings');
-	// ajax test
+function visitorFormSubmit(){
+	var params = new Array("AddVisitor");
+	var formFieldValues = $("#visitorForm").serializeArray();
+	params.push(formFieldValues);
+	// console.log(params);
 	$.ajax({
 	   type: "post",
 	   url: "/rpc",
@@ -9,7 +11,32 @@ $(document).ready(function(){
 	   success: function(response){
 		 console.log(response);
 	   }
-	 });
+	});
+};
+
+function getVisitors(){
+	var params = new Array("GetAllGreetings");
+	$.ajax({
+	   type: "post",
+	   url: "/rpc",
+	   data: JSON.stringify(params),
+	   dataType: "json",
+	   success: function(response){
+		 console.log(response);
+	   }
+	});
+};
+
+$(document).ready(function(){
+	
+	//get all visitors
+	getVisitors();
+	
+	// visitor form behaviours
+	$("#visitorForm").on("click", "#btnSubmit", function(event){
+		event.preventDefault();
+		visitorFormSubmit();
+	});
 
 	// summary list behaviour 
 	$("#summaryContainer li").children(".arrivalToggle").hide();	
@@ -22,4 +49,5 @@ $(document).ready(function(){
 	   } 
 	});
 	
+		
 });
