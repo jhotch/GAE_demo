@@ -15,7 +15,7 @@ function visitorFormSubmit(){
 };
 
 function getVisitors(){
-	var params = new Array("GetAllGreetings");
+	var params = new Array("GetAllVisitors");
 	$.ajax({
 	   type: "post",
 	   url: "/rpc",

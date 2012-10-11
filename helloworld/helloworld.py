@@ -72,6 +72,11 @@ class RPCMethods:
 		jsonResult = to_json(greetings)
 		return jsonResult
 		
+	def GetAllVisitors(self):
+		visitor_query = Visitor.all().order('expectedArrivalDate').order('expectedArrivalTime').order('actualArrivalTime').order('actualDepartureTime')
+		jsonResult = to_json(visitor_query)
+		return jsonResult
+		
 	def AddVisitor(self, argsArray):
 		visitor = Visitor()
 		visitor.name = argsArray[0].get("value")
@@ -79,9 +84,9 @@ class RPCMethods:
 		visitor.expectedArrivalDate = datetime.datetime.strptime(argsArray[2].get("value"), "%Y-%m-%d")
 		visitor.expectedArrivalTime = datetime.datetime.strptime(argsArray[3].get("value"), "%H:%M")
 		visitor.put()
-		logging.info(visitor.key())
-		#jsonVisitorKey = json.dumps(visitor.key(), cls=JSONEncoder)
-		return "jsonVisitorKey"
+		#logging.info(visitor.key().id())
+		jsonVisitorKey = json.dumps(visitor.key().id(), cls=JSONEncoder)
+		return jsonVisitorKey
 
 class MainPage(webapp2.RequestHandler):
     def get(self):

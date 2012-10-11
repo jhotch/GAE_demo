@@ -15,3 +15,10 @@ indexes:
   properties:
   - name: date
     direction: desc
+
+- kind: Visitor
+  properties:
+  - name: expectedArrivalDate
+  - name: expectedArrivalTime
+  - name: actualArrivalTime
+  - name: actualDepartureTime
