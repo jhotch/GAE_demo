@@ -15,10 +15,10 @@
 				<div class="col1">
 					<!-- Column 1 start -->
 					<div id="summaryContainer">
-						<h1>Visitor Summary - TodaysDate</h1>
+						<h1>Visitor Log - <span id="currentDateContainer">TodaysDate</span></h1>
 						
 						<h2>Due to Arrive</h2>
-						<ol>
+						<ol id="arrivalDueContainer">
 							<li>
 								<span class="arrivalToggle">
 									<input id="btnArrival_1" name="btnArrival_1" type="button" value="Arrived" />
@@ -57,7 +57,7 @@
 						</ol>
 						
 						<h2>On-site</h2>
-						<ol>
+						<ol id="onsiteContainer">
 							<li>
 								<span class="arrivalToggle">
 									<input id="btnDeparted_1" name="btnDeparted_1" type="button" value="Departed" />
@@ -96,7 +96,7 @@
 						</ol>
 						
 						<h2>Departed</h2>
-						<ol>
+						<ol id="departedContainer">
 							<li>
 								<h3>Visitor's FullName <span class="arrivalInfo">Arrived 00:00 AM / Departed 00:00 AM</span></h3>
 								<h4>Escorted by Escort's FullName.</h4>

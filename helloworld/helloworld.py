@@ -72,17 +72,27 @@ class RPCMethods:
 		jsonResult = to_json(greetings)
 		return jsonResult
 		
-	def GetAllVisitors(self):
-		visitor_query = Visitor.all().order('expectedArrivalDate').order('expectedArrivalTime').order('actualArrivalTime').order('actualDepartureTime')
+	def GetVisitors(self, category):
+		rawDate = datetime.datetime.now()
+		currentDate = datetime.datetime(rawDate.year,rawDate.month,rawDate.day,0,0,0)		
+		q = Visitor.all().filter('expectedArrivalDate =', currentDate).order('expectedArrivalTime').order('actualArrivalTime').order('actualDepartureTime')
+		if category == 'all':
+			visitor_query = q
+		elif category == 'due':
+			visitor_query = q.filter('actualArrivalTime =', None).filter('actualDepartureTime =', None)
+		elif category == 'onsite':
+			visitor_query = q.filter('actualArrivalTime !=', None).filter('actualDepartureTime =', None)
+		elif category == 'departed':
+			visitor_query = q.filter('actualArrivalTime !=', None).filter('actualDepartureTime !=', None)
 		jsonResult = to_json(visitor_query)
 		return jsonResult
 		
 	def AddVisitor(self, argsArray):
 		visitor = Visitor()
-		visitor.name = argsArray[0].get("value")
-		visitor.escortName = argsArray[1].get("value")
-		visitor.expectedArrivalDate = datetime.datetime.strptime(argsArray[2].get("value"), "%Y-%m-%d")
-		visitor.expectedArrivalTime = datetime.datetime.strptime(argsArray[3].get("value"), "%H:%M")
+		visitor.name = argsArray[0].get('value')
+		visitor.escortName = argsArray[1].get('value')
+		visitor.expectedArrivalDate = datetime.datetime.strptime(argsArray[2].get('value'), '%Y-%m-%d')
+		visitor.expectedArrivalTime = datetime.datetime.strptime(argsArray[3].get('value'), '%H:%M')
 		visitor.put()
 		#logging.info(visitor.key().id())
 		jsonVisitorKey = json.dumps(visitor.key().id(), cls=JSONEncoder)
