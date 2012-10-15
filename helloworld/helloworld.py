@@ -7,6 +7,11 @@ import jinja2
 import os
 import json
 import logging
+import os
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), 'lib'))
+import dateutil
+from dateutil import tz
 
 from google.appengine.ext import db
 from google.appengine.api import users
@@ -15,9 +20,9 @@ jinja_environment = jinja2.Environment(loader = jinja2.FileSystemLoader(os.path.
 
 
 class Greeting(db.Model):
-  author = db.StringProperty()
-  content = db.StringProperty(multiline = True)
-  date = db.DateTimeProperty(auto_now_add = True)
+	author = db.StringProperty()
+	content = db.StringProperty(multiline = True)
+	date = db.DateTimeProperty(auto_now_add = True)
   
 class Visitor(db.Model):
 	name = db.StringProperty()
@@ -28,7 +33,10 @@ class Visitor(db.Model):
 	actualDepartureTime = db.DateTimeProperty()
 
 def guestbook_key(guestbook_name = None):
-  return db.Key.from_path('Guestbook', guestbook_name or 'default_guestbook')
+	return db.Key.from_path('Guestbook', guestbook_name or 'default_guestbook')
+  
+def vistor_key(id = None):
+	return db.Key.from_path('Visitor', 'ID', id)
   
 def to_json(gql_object):
 	result = []
@@ -73,10 +81,17 @@ class RPCMethods:
 		return jsonResult
 		
 	def GetVisitors(self, category):
-		rawDate = datetime.datetime.now()
-		currentDate = datetime.datetime(rawDate.year,rawDate.month,rawDate.day,0,0,0)		
+		from_zone = tz.gettz('UTC')
+		to_zone = tz.gettz('America/Chicago')
+		rawDate = datetime.datetime.utcnow()
+		rawDate = rawDate.replace(tzinfo=from_zone)
+		cstDate = rawDate.astimezone(to_zone)
+		currentDate = datetime.datetime(cstDate.year,cstDate.month,cstDate.day,0,0,0)
+		
 		q = Visitor.all().filter('expectedArrivalDate =', currentDate).order('expectedArrivalTime').order('actualArrivalTime').order('actualDepartureTime')
 		if category == 'all':
+			logging.info(category)
+			logging.info(currentDate)
 			visitor_query = q
 		elif category == 'due':
 			visitor_query = q.filter('actualArrivalTime =', None).filter('actualDepartureTime =', None)
