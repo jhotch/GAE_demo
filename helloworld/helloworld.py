@@ -1,5 +1,6 @@
 import cgi
 import datetime
+from datetime import date, timedelta
 import time
 import urllib
 import webapp2
@@ -10,8 +11,7 @@ import logging
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'lib'))
-import dateutil
-from dateutil import tz
+from pytz.gae import pytz
 
 from google.appengine.ext import db
 from google.appengine.api import users
@@ -81,16 +81,11 @@ class RPCMethods:
 		return jsonResult
 		
 	def GetVisitors(self, category):
-		from_zone = tz.gettz('UTC')
-		to_zone = tz.gettz('America/Chicago')
-		rawDate = datetime.datetime.utcnow()
-		rawDate = rawDate.replace(tzinfo=from_zone)
-		cstDate = rawDate.astimezone(to_zone)
-		currentDate = datetime.datetime(cstDate.year,cstDate.month,cstDate.day,0,0,0)
-		
+		rawDate = datetime.datetime.utcnow()-timedelta(days=1)
+		currentDate = datetime.datetime(rawDate.year,rawDate.month,rawDate.day,0,0,0)
 		q = Visitor.all().filter('expectedArrivalDate =', currentDate).order('expectedArrivalTime').order('actualArrivalTime').order('actualDepartureTime')
 		if category == 'all':
-			logging.info(category)
+			logging.info(q)
 			logging.info(currentDate)
 			visitor_query = q
 		elif category == 'due':
