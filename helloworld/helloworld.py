@@ -35,8 +35,8 @@ class Visitor(db.Model):
 def guestbook_key(guestbook_name = None):
 	return db.Key.from_path('Guestbook', guestbook_name or 'default_guestbook')
   
-def vistor_key(id = None):
-	return db.Key.from_path('Visitor', 'ID', id)
+def visitor_key(visitor_name = None):
+	return db.Key.from_path('Visitor', visitor_name or 'default_visitor')
   
 def to_json(gql_object):
 	result = []
@@ -85,8 +85,6 @@ class RPCMethods:
 		currentDate = datetime.datetime(rawDate.year,rawDate.month,rawDate.day,0,0,0)
 		q = Visitor.all().filter('expectedArrivalDate =', currentDate).order('expectedArrivalTime').order('actualArrivalTime').order('actualDepartureTime')
 		if category == 'all':
-			logging.info(q)
-			logging.info(currentDate)
 			visitor_query = q
 		elif category == 'due':
 			visitor_query = q.filter('actualArrivalTime =', None).filter('actualDepartureTime =', None)
@@ -98,7 +96,8 @@ class RPCMethods:
 		return jsonResult
 		
 	def AddVisitor(self, argsArray):
-		visitor = Visitor()
+		visitor_name = argsArray[0].get('value')
+		visitor = Visitor(parent=visitor_key(visitor_name))
 		visitor.name = argsArray[0].get('value')
 		visitor.escortName = argsArray[1].get('value')
 		visitor.expectedArrivalDate = datetime.datetime.strptime(argsArray[2].get('value'), '%Y-%m-%d')

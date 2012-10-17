@@ -47,10 +47,37 @@ function refreshVisitors(arrObjects, category){
 	// clear existing display
 	$('#arrivalDueContainer, #onsiteContainer, #departedContainer').html('<h4>Loading...</h4>');
 	// rebuild displays
-	rebuildDisplays(arrDue, arrOnsite, arrDeparted);
+	rebuildDisplay(arrDue, arrOnsite, arrDeparted);
 };
 
-function rebuildDisplays(){
+function rebuildDisplay(arrObjects, category){
+	var $containerElement;
+	switch(category){
+		case 'due':
+			$containerElement = $('#arrivalDueContainer');
+			break;
+		case 'onsite':
+			$containerElement = $('#onsiteContainer');
+			break;
+		case 'departed':
+			$containerElement = $('#departedContainer');
+			break;
+	};
+	
+	/*
+	
+	<li>
+		<span class="arrivalToggle">
+			<input id="btnArrival_1" name="btnArrival_1" type="button" value="Arrived" />
+		</span>
+		<h3>Visitor's FullName <span class="arrivalInfo">Due at 00:00 AM</span></h3>
+		<h4>To be escorted by Escort's FullName.</h4>
+	</li>
+	
+	*/
+	
+	$containerElement.html('<h4>Loading...</h4>');
+	
 	
 };
 
